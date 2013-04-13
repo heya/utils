@@ -1,0 +1,26 @@
+{
+  "name": "heya-utils",
+  "version": "0.1.0",
+  "description": "General purpose utilitites, frequently used functions.",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "heya-unit": ">=0.1"
+  },
+  "scripts": {
+    "test": "node tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/heya/utils.git"
+  },
+  "keywords": [
+    "general",
+    "general purpose",
+    "utilities"
+  ],
+  "author": "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://lazutkin.com/)",
+  "license": "BSD"
+}
