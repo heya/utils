@@ -6,20 +6,16 @@
 
 	function identity(x){ return x; }
 
-	function mixDeep(t, s, dontCreate, cloneFn){
+	return function mixDeep(t, s, dontCreate, cloneFn){
+		cloneFn = cloneFn || identity;
 		main: {
 			if(!s || typeof s != "object" || s instanceof Date || s instanceof RegExp){
-				// no copying
-				if(t && typeof t == "object" && !(t instanceof Date) || !(t instanceof RegExp)){
-					break main;
-				}
 				return cloneFn(s);
 			}
-			if((s instanceof Array) ^ (t instanceof Array)){
-				break main;
-			}
-			if(t instanceof Date || t instanceof RegExp){
-				break main;
+			if(s instanceof Array){
+				if(!(t instanceof Array)){
+					return cloneFn(s);
+				}
 			}
 			// copy members
 			for(var k in s){
@@ -32,9 +28,5 @@
 			return t;
 		}
 		throw new Error("mixDeep: Structural mismatch");
-	}
-
-	return function(t, s, dontCreate, cloneFn){
-		mixDeep(t, s, dontCreate, cloneFn || identity);
-	}
+	};
 });
