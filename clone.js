@@ -12,7 +12,11 @@
 			return new Date(s.getTime());
 		}
 		if(s instanceof RegExp){
-			return new RegExp(s);
+			return new RegExp(s.source,
+					(s.global ? "g" : "") +
+					(s.multiline ? "m" : "") +
+					(s.ignoreCase ? "i" : "")
+				);
 		}
 		var t = s instanceof Array ? [] : {};
 		for(var i in s){
