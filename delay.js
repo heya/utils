@@ -2,14 +2,15 @@
 ([], function(){
 	"use strict";
 
-	return function delay(f, delay){
+	return function delay(f, ms){
 		return function(){
 			var self = this, args = arguments,
 				handle = setTimeout(function(){
 					handle = null;
 					f.apply(self, args);
-				}, delay);
+				}, ms);
 			return {
+				isWaiting: function(){ return !!handle; },
 				destroy: function(){
 					if(handle){
 						clearTimeout(handle);
