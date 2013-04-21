@@ -2,7 +2,7 @@
 ([], function(){
 	"use strict";
 
-	return function debounce(f, delay){
+	return function debounce(f, ms){
 		var handle;
 		return function(){
 			if(handle){
@@ -12,8 +12,9 @@
 			handle = setTimeout(function(){
 				handle = null;
 				f.apply(self, args);
-			}, delay);
+			}, ms);
 			return {
+				isWaiting: function(){ return !!handle; },
 				destroy: function(){
 					if(handle){
 						clearTimeout(handle);
