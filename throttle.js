@@ -21,6 +21,7 @@
 				f.apply(this, arguments);
 			}
 			return {
+				isWaiting: function(){ return !!handle; },
 				destroy: function(){
 					if(handle){
 						clearTimeout(handle);
