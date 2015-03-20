@@ -1,8 +1,8 @@
 /* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
 (["module", "heya-unit", "../mixin", "../mixOwn", "../mixDeep", "../clone",
-	"../getProp", "../setProp", "../delay", "../debounce", "../throttle"],
+	"../getProp", "../setProp", "../sprintf", "../delay", "../debounce", "../throttle"],
 function(module, unit, mixin, mixOwn, mixDeep, clone,
-	getProp, setProp, delay, debounce, throttle){
+	getProp, setProp, sprintf, delay, debounce, throttle){
 
 	"use strict";
 
@@ -146,6 +146,118 @@ function(module, unit, mixin, mixOwn, mixDeep, clone,
 			setProp(r, "c.0", new Date(2013, 3, 15));
 
 			eval(t.TEST("t.unify(p, r)"));
+		},
+		// sprintf
+		function test_sprintf(t){
+			eval(t.TEST("sprintf('a %% b') === 'a % b'"));
+			eval(t.TEST("sprintf('a %% %d b', 123)    === 'a % 123 b'"));
+			eval(t.TEST("sprintf('a %d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %d b', 456.789) === 'a 457 b'"));
+			eval(t.TEST("sprintf('a %+d b',  123.456) === 'a +123 b'"));
+			eval(t.TEST("sprintf('a %+d b', -123.456) === 'a -123 b'"));
+			eval(t.TEST("sprintf('a % d b',  123.456) === 'a  123 b'"));
+			eval(t.TEST("sprintf('a % d b', -123.456) === 'a -123 b'"));
+
+			eval(t.TEST("sprintf('a %u b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %i b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %o b', 123.456) === 'a 173 b'"));
+			eval(t.TEST("sprintf('a %b b', 123.456) === 'a 1111011 b'"));
+			eval(t.TEST("sprintf('a %B b', 123.456) === 'a 1111011 b'"));
+			eval(t.TEST("sprintf('a %x b', 123.456) === 'a 7b b'"));
+			eval(t.TEST("sprintf('a %X b', 123.456) === 'a 7B b'"));
+
+			eval(t.TEST("sprintf('a %#d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %#u b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %#i b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %#o b', 123.456) === 'a 0173 b'"));
+			eval(t.TEST("sprintf('a %#b b', 123.456) === 'a b1111011 b'"));
+			eval(t.TEST("sprintf('a %#B b', 123.456) === 'a B1111011 b'"));
+			eval(t.TEST("sprintf('a %#x b', 123.456) === 'a 0x7b b'"));
+			eval(t.TEST("sprintf('a %#X b', 123.456) === 'a 0X7B b'"));
+
+			eval(t.TEST("sprintf('a %d b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %u b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %i b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %o b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %b b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %B b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %x b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %X b', 0) === 'a 0 b'"));
+
+			eval(t.TEST("sprintf('a %#d b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#u b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#i b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#o b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#b b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#B b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#x b', 0) === 'a 0 b'"));
+			eval(t.TEST("sprintf('a %#X b', 0) === 'a 0 b'"));
+
+			eval(t.TEST("sprintf('a %f b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.1f b', 123.456) === 'a 123.5 b'"));
+			eval(t.TEST("sprintf('a %.2f b', 123.456) === 'a 123.46 b'"));
+			eval(t.TEST("sprintf('a %.3f b', 123.456) === 'a 123.456 b'"));
+			eval(t.TEST("sprintf('a %.4f b', 123.456) === 'a 123.4560 b'"));
+
+			eval(t.TEST("sprintf('a %e b', 123.456) === 'a 1.23456e+2 b'"));
+			eval(t.TEST("sprintf('a %.1e b', 123.456) === 'a 1.2e+2 b'"));
+			eval(t.TEST("sprintf('a %.2e b', 123.456) === 'a 1.23e+2 b'"));
+			eval(t.TEST("sprintf('a %.3e b', 123.456) === 'a 1.235e+2 b'"));
+			eval(t.TEST("sprintf('a %.4e b', 123.456) === 'a 1.2346e+2 b'"));
+			eval(t.TEST("sprintf('a %.5e b', 123.456) === 'a 1.23456e+2 b'"));
+			eval(t.TEST("sprintf('a %.6e b', 123.456) === 'a 1.234560e+2 b'"));
+
+			eval(t.TEST("sprintf('a %E b', 123.456) === 'a 1.23456E+2 b'"));
+			eval(t.TEST("sprintf('a %.1E b', 123.456) === 'a 1.2E+2 b'"));
+			eval(t.TEST("sprintf('a %.2E b', 123.456) === 'a 1.23E+2 b'"));
+			eval(t.TEST("sprintf('a %.3E b', 123.456) === 'a 1.235E+2 b'"));
+			eval(t.TEST("sprintf('a %.4E b', 123.456) === 'a 1.2346E+2 b'"));
+			eval(t.TEST("sprintf('a %.5E b', 123.456) === 'a 1.23456E+2 b'"));
+			eval(t.TEST("sprintf('a %.6E b', 123.456) === 'a 1.234560E+2 b'"));
+
+			eval(t.TEST("sprintf('a %g b', 123.456) === 'a 123.456 b'"));
+			eval(t.TEST("sprintf('a %.1g b', 123.456) === 'a 1e+2 b'"));
+			eval(t.TEST("sprintf('a %.2g b', 123.456) === 'a 1.2e+2 b'"));
+			eval(t.TEST("sprintf('a %.3g b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.4g b', 123.456) === 'a 123.5 b'"));
+			eval(t.TEST("sprintf('a %.5g b', 123.456) === 'a 123.46 b'"));
+			eval(t.TEST("sprintf('a %.6g b', 123.456) === 'a 123.456 b'"));
+
+			eval(t.TEST("sprintf('a %G b', 123.456) === 'a 123.456 b'"));
+			eval(t.TEST("sprintf('a %.1G b', 123.456) === 'a 1E+2 b'"));
+			eval(t.TEST("sprintf('a %.2G b', 123.456) === 'a 1.2E+2 b'"));
+			eval(t.TEST("sprintf('a %.3G b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.4G b', 123.456) === 'a 123.5 b'"));
+			eval(t.TEST("sprintf('a %.5G b', 123.456) === 'a 123.46 b'"));
+			eval(t.TEST("sprintf('a %.6G b', 123.456) === 'a 123.456 b'"));
+
+			eval(t.TEST("sprintf('a %d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.1d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.2d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.3d b', 123.456) === 'a 123 b'"));
+			eval(t.TEST("sprintf('a %.4d b', 123.456) === 'a 0123 b'"));
+			eval(t.TEST("sprintf('a %.5d b', 123.456) === 'a 00123 b'"));
+			eval(t.TEST("sprintf('a %.6d b', 123.456) === 'a 000123 b'"));
+
+			eval(t.TEST("sprintf('a %.3o b', 123) === 'a 173 b'"));
+			eval(t.TEST("sprintf('a %.8b b', 123) === 'a 01111011 b'"));
+			eval(t.TEST("sprintf('a %.4x b', 123) === 'a 007b b'"));
+
+			eval(t.TEST("sprintf('a %#.3o b', 123) === 'a 0173 b'"));
+			eval(t.TEST("sprintf('a %#.8b b', 123) === 'a b01111011 b'"));
+			eval(t.TEST("sprintf('a %#.4x b', 123) === 'a 0x007b b'"));
+
+			eval(t.TEST("sprintf('a %j b', {a: 1, b: true, c: 'Hi!'}) === 'a {\"a\":1,\"b\":true,\"c\":\"Hi!\"} b'"));
+
+			eval(t.TEST("sprintf('a %s b', 'Hello') === 'a Hello b'"));
+			eval(t.TEST("sprintf('a %S b', 'Hello') === 'a HELLO b'"));
+			eval(t.TEST("sprintf('a %t b', 'Hello') === 'a hello b'"));
+
+			eval(t.TEST("sprintf('a %.4s b',   'Hello') === 'a Hell b'"));
+			eval(t.TEST("sprintf('a %6.4s b',  'Hello') === 'a   Hell b'"));
+			eval(t.TEST("sprintf('a %-6.4s b', 'Hello') === 'a Hell   b'"));
+			eval(t.TEST("sprintf('a %6s b',    'Hello') === 'a  Hello b'"));
+			eval(t.TEST("sprintf('a %-6s b',   'Hello') === 'a Hello  b'"));
 		},
 		// delay
 		{
