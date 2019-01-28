@@ -1,10 +1,9 @@
 # heya-utils
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/heya/utils.svg)](https://greenkeeper.io/)
-
 [![Build status][travis-image]][travis-url]
 [![Dependencies][deps-image]][deps-url]
 [![devDependencies][dev-deps-image]][dev-deps-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/heya/utils.svg)](https://greenkeeper.io/)
 [![NPM version][npm-image]][npm-url]
 
 General purpose utilitites, frequently used functions.
