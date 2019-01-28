@@ -1,16 +1,21 @@
 {
   "name": "heya-utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "General purpose utilitites, frequently used functions.",
   "directories": {
     "test": "tests"
   },
   "dependencies": {},
   "devDependencies": {
-    "heya-unit": "^0.3.0"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "heya-unit": "^0.3.0",
+    "puppeteer": "^1.11.0"
   },
   "scripts": {
-    "test": "node tests/tests.js"
+    "start": "node tests/server.js",
+    "test": "node tests/tests.js",
+    "pup": "node tests/puppeteer.js"
   },
   "repository": {
     "type": "git",
