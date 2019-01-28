@@ -7,7 +7,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "heya-unit": ">=0.1"
+    "heya-unit": "^0.3.0"
   },
   "scripts": {
     "test": "node tests/tests.js"
