@@ -24,6 +24,10 @@ For your browser-based projects I suggest to use [volo.js](http://volojs.org):
 volo install heya/utils heya-utils
 ```
 
+## Versions
+
+- 0.1.4 *Refreshed dev deps.*
+
 [npm-image]:         https://img.shields.io/npm/v/heya-utils.svg
 [npm-url]:           https://npmjs.org/package/heya-utils
 [deps-image]:        https://img.shields.io/david/heya/utils.svg
